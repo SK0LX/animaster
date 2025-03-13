@@ -1,39 +1,46 @@
 class Animaster{
-
+    
     _steps = [];
+    constructor(steps = []) {
+        this._steps = [...steps];
+    }
+
+    _createNewAnimaster(newStep) {
+        const newSteps = [...this._steps, newStep];
+        return new Animaster(newSteps);
+    }
+    
+    
+
     addMove(duration, translation){
-        this._steps.push({
+        return this._createNewAnimaster({
             name: "move",
             duration: duration,
             translation: translation,
-            ratio:null
-        })
-        return this;
+            ratio: null
+        });
     };
 
     addScale(duration, ratio){
-        this._steps.push({
+        return this._createNewAnimaster({
             name: "scale",
             duration: duration,
-            ratio:ratio
+            ratio: ratio
         });
-        return this;
     }
 
     addFadeIn(duration){
-        this._steps.push({
+        return this._createNewAnimaster({
             name: "fadeIn",
             duration: duration
         });
-        return this;
     }
 
     addFadeOut(duration){
-        this._steps.push({
+        return this._createNewAnimaster({
             name: "fadeOut",
             duration: duration
         });
-        return this;
     }
 
 
@@ -192,12 +199,11 @@ class Animaster{
     }
     
     addRotate(duration, angle) {
-        this._steps.push({
+        return this._createNewAnimaster({
             name: "rotate",
             duration: duration,
             angle: angle
         });
-        return this;
     }
 
     showAndHide(element){
@@ -217,9 +223,10 @@ class Animaster{
     }
 
     addDelay(duration){
-        setTimeout(() => {
-        },duration);
-        return this;
+        return this._createNewAnimaster({
+            name: "delay",
+            duration: duration
+        });
     }
 
     heartBeating(element) {
